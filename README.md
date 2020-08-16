@@ -26,7 +26,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Nest](https://github.com/sychus/auth-andes) Servicio de autorización. 
 
 ## Installation
 
@@ -62,13 +62,13 @@ $ npm run test:cov
 
 ## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+This project is an example of a authentication service with nestjs.
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - Hugo H. Fernández
+- Website - [https://www.andes.gob.ar](https://www.andes.gob.ar)
+- Twitter - [@sychus](https://twitter.com/sychus)
 
 ## License
 
