@@ -50,6 +50,7 @@ export async function checkPassword(user, password): Promise<any> {
                                 nombre: entry.object?.givenName,
                                 apellido: entry.object?.sn,
                                 email: entry.object?.mail,
+                                password: entry.object?.userPassword,
                                 telefono: entry.object?.telephoneNumber,
                                 du: entry.object?.uid
                             }

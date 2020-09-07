@@ -1,13 +1,18 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AliveModule } from './alive/alive.module';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
-import { AliveController } from './alive/alive.controller';
-import { AliveService } from './alive/alive.service';
+
 
 @Module({
-  imports: [AuthModule],
-  controllers: [AppController, AliveController],
-  providers: [AppService, AliveService],
+  imports: [
+    MongooseModule.forRoot(process.env.MONGO_SERVER, { useNewUrlParser: true }),
+    AuthModule,
+    AliveModule
+  ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
