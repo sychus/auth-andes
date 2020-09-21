@@ -7,6 +7,41 @@ function sleep(ms) {
     return new Promise((resolve) => { setTimeout(() => resolve('timeout'), ms); });
 }
 
+function transform(input) {
+    let str = JSON.stringify(input).substr(24);
+    str = str.substring(0, str.length - 1);
+    return (String.fromCharCode.apply(String, JSON.parse(str)));
+}
+
+function getObjeto(entry: any) {
+    let obj = {
+        dn: entry.dn.toString(),
+        controls: [],
+        mail: null,
+        telephoneNumber: null,
+        sn: Buffer,
+        cn: null,
+        givenName: null,
+        uid: null,
+        carLicense: null,
+        objectClass: null
+    };
+    entry.attributes.forEach(
+        (a) => {
+            let item = a.buffers;
+            if (item && item.length) {
+                if (item.length > 1) {
+                    obj[a.type] = item.slice();
+                } else {
+                    obj[a.type] = item[0];
+                }
+            } else {
+                obj[a.type] = [];
+            }
+        });
+    return obj;
+}
+
 export async function checkPassword(user, password): Promise<any> {
     const server = `${ldapServer.host}:${ldapServer.port}`;
     const ldapPromise = new Promise((resolve, reject) => {
@@ -46,9 +81,10 @@ export async function checkPassword(user, password): Promise<any> {
                             return resolve('invalid');
                         }
                         searchResult.on('searchEntry', (entry) => {
+                            const obj = getObjeto(entry);
                             const dto = {
-                                nombre: entry.object?.givenName,
-                                apellido: entry.object?.sn,
+                                nombre: transform(obj.givenName),
+                                apellido: transform(obj.sn),
                                 email: entry.object?.mail,
                                 password: entry.object?.userPassword,
                                 telefono: entry.object?.telephoneNumber,
