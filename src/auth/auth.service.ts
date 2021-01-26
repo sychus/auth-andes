@@ -12,6 +12,7 @@ export class AuthService {
     ) {}
 
     async auth(data): Promise<any> {
+        // busco en onelogin
         const user: any = await checkPassword(data.username, data.password);
         if (user) {
             return {nombre: user.nombre, apellido: user.apellido, password: user.password, email: user.email, telefono: user.telefono, du: user.du}
@@ -21,7 +22,7 @@ export class AuthService {
       }
 
     // Falta enviar por parametro el método de encriptado (para hacerlo más genérico)
-    async authOtherDatabase(data): Promise<any>{
+    async search(data): Promise<any>{
         const sha1Hash = require('sha1');
         const p = sha1Hash(data.password);
         const user: any = await this.authModel.findOne({usuario: data.username, password: p}).exec();
@@ -34,6 +35,7 @@ export class AuthService {
             }
         } else
         {
+            // NO existe
             return null
         }
         
