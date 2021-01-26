@@ -14,7 +14,7 @@ export class AuthController {
 
         let rta = await this.authService.auth(data);
         if (!rta) {
-            return await this.authService.authOtherDatabase(data);
+            return await this.authService.search(data);
         } else {
             return rta;
         }
